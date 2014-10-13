@@ -99,15 +99,13 @@ int test_set_run(const char *pidfile)
 		return -1;
 	/// 加锁
 	int ret;
-	if((ret=lock_file(fd))==0)
+	if((ret=lock_file(fd))==0)   /// 锁失败，已经运行
 	{
-		close(fd);
 		return 1;
 	}
 	if(ret==-1)
 	{
 		PRINT_ERR(LOG_ERR,"lock_file error");
-		close(fd);
 		return -1;
 	}
 	/// 写入pid
@@ -117,7 +115,6 @@ int test_set_run(const char *pidfile)
 	str_pid[len-1]='\0';
 	write(fd,str_pid,strlen(str_pid));
 	/// 关闭文件
-	close(fd);
 	return 0;
 }
 

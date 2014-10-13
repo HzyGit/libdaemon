@@ -11,6 +11,7 @@
 #include <errno.h>
 #include <error.h>
 
+
 extern bool g_is_debug;     ///< 是否开启调试模式
 extern const char *g_pidfile;    ///< 服务程序pid文件
 
@@ -42,7 +43,7 @@ while(false)
 #define PRINT_INFO(LEVEL,fmt,args...) \
 do{\
 	if(g_is_debug){ \
-		error_at_line(0,0,__FILE__,__LINE__,fmt,##args);\
+		error(0,0,fmt,##args);\
 	}\
 	else { \
 		syslog(LEVEL,fmt,##args);\

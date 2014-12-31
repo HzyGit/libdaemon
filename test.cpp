@@ -29,6 +29,20 @@ static void test_is_run()
 
 }
 
+static void test_quiet_output()
+{
+	bool quiet=g_is_quiet;
+	g_is_quiet=true;
+	printf("test quiet_output:\n");
+	PRINT_INFO(LOG_ERR,"hello err");
+	PRINT_INFO(LOG_ERR,"hello err %d %d",0,0);
+	int err=errno;
+	errno=EINVAL;
+	PRINT_ERR(LOG_ERR,"hello err");
+	errno=err;
+	g_is_quiet=quiet;
+}
+
 int main(int argc,char **argv)
 {
 	if(argc>=2&&strcmp(argv[1],"-g")==0)
@@ -41,6 +55,7 @@ int main(int argc,char **argv)
 		assert(daemonize("test",LOG_PID,LOG_DAEMON)==0);
 	/// test
 	test_output();
+	test_quiet_output();
 	test_is_run();
 	test_is_run();
 	sleep(2);

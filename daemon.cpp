@@ -1,5 +1,5 @@
 /**
- * @file daemon.h
+ * @file daemon.cpp
  * @brief daemon程序常用函数库
  *        包换了调试模式和单例服务的支持
  * @author hzy.oop@gmail.com
@@ -21,6 +21,8 @@
 
 #include "daemon.h"
 bool g_is_debug=true;
+bool g_is_quiet=false;   ///<  是否关闭调试输出
+
 const char *g_pidfile="/test.pid";
 
 /// @brief 服务化函数

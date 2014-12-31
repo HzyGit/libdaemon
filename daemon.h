@@ -14,6 +14,7 @@
 
 extern bool g_is_debug;     ///< 是否开启调试模式
 extern const char *g_pidfile;    ///< 服务程序pid文件
+extern bool g_is_quiet;      ///< 是否关闭调试输出 
 
 /// @brief 服务化函数
 /// @param[in] cmd 应用程序名
@@ -31,6 +32,8 @@ int test_set_run(const char *pidfile);
 /// @brief 日志输出
 #define PRINT_ERR(LEVEL,fmt,args...) \
 do {\
+	if(g_is_quiet) \
+		break;\
 	if(g_is_debug){ \
 		error_at_line(0,errno,__FILE__,__LINE__,fmt,##args);\
 	}\
@@ -42,6 +45,8 @@ while(false)
 
 #define PRINT_INFO(LEVEL,fmt,args...) \
 do{\
+	if(g_is_quiet) \
+		break;\
 	if(g_is_debug){ \
 		error(0,0,fmt,##args);\
 	}\
